@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Home
+      어서오세요!
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-grid fixed>
+<ion-content fullscreen padding scroll-y="false">
+  <!-- <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
         The world is your oyster.
@@ -22,6 +22,26 @@
     </ion-row>
   </ion-grid>
   <div class="ion-padding">
+  </div> -->
+  <ion-slides>
 
-  </div>
+      <ion-slide>
+        <!-- <img src="./slide-1.png"/> -->
+        <h2>Welcome to the Study-Pixie!</h2>
+        <p>blablabla</p>
+      </ion-slide>
+
+      <ion-slide>
+        <!-- <img src="../../assets/slide-2.png"/> -->
+        <h2>What is Study-Pixie?</h2>
+        <p>blablabla</p>
+      </ion-slide>
+
+      <ion-slide>
+        <!-- <img src="./slide-4.png"/> -->
+        <h2>준비되셨나요?</h2>
+        <ion-button fill="clear" [routerLink]="['/','pixies']">시작하기<ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      </ion-slide>
+
+    </ion-slides>
 </ion-content>

@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'pixies', loadChildren: './pixies/pixies.module#PixiesPageModule' },
+  { path: 'discover', loadChildren: './pixies/discover/discover.module#DiscoverPageModule' },
 ];
 
 
