@@ -1,9 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input
+} from "@angular/core";
 import { environment } from "../../../environments/environment";
 import * as mapboxgl from "mapbox-gl";
 import { MapService } from "./map.service";
 import { GeoJson, FeatureCollection } from "./map";
 import { Feature } from "geojson";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-map",
@@ -11,46 +16,23 @@ import { Feature } from "geojson";
   styleUrls: ["./map.component.scss"]
 })
 export class MapComponent implements OnInit {
-  ngOnInit(): void {}
   map: mapboxgl.Map;
   style = "mapbox://styles/devserv/ck34b1p5i1bpp1cl32nylbsw7";
   // style = "mapbox://styles/mapbox/light-v10";
-  lat = 37.75;
-  lng = -122.41;
+  currentLngLat: mapboxgl.LngLatLike = [37.75,-122.41];
   init = false;
   monument: mapboxgl.LngLatLike = [-122.414, 37.776];
 
-  features = new FeatureCollection([
-    {
-      // feature for Mapbox DC
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-77.03238901390978, 38.913188059745586]
-      },
-      properties: {
-        title: "Mapbox DC",
-        icon: "monument"
-      }
-    },
-    {
-      // feature for Mapbox SF
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-122.414, 37.776]
-      },
-      properties: {
-        title: "Mapbox SF",
-        icon: "harbor"
-      }
-    }
-  ]);
+  features: Observable<mapboxgl.LngLatLike>;
+
+  ngOnInit(): void {
+   this.features = this.mapService.fetchStudiesByLngLat(this.currentLngLat).subscribe();
+  }
 
   constructor(private mapService: MapService) {}
 
-  //ionview에 진입하고 맵을 출력한다.
-  ngAfterContentChecked() {
+  //ionViewDidEnter에 진입하고 맵을 출력한다.
+  showMap() {
     if (!this.init) {
       mapboxgl.accessToken = environment.mapboxAccessToken;
       this.map = new mapboxgl.Map({
@@ -113,8 +95,6 @@ export class MapComponent implements OnInit {
       //   }
       // });
 
-      
-
       this.features.features.forEach(marker => {
         // create a HTML element for each feature
         var el = document.createElement("div");
@@ -126,9 +106,9 @@ export class MapComponent implements OnInit {
         el.style.borderRadius = "50%";
 
         // create the popup
-      var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-        "Construction on the Washington Monument began in 1848."
-      );
+        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+          "Construction on the Washington Monument began in 1848."
+        );
 
         // make a marker for each feature and add to the map
         var mark = new mapboxgl.Marker(el)
