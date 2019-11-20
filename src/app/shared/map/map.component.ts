@@ -6,7 +6,7 @@ import {
 import { environment } from "../../../environments/environment";
 import * as mapboxgl from "mapbox-gl";
 import { MapService } from "./map.service";
-import { GeoJson, FeatureCollection } from "./map";
+import { GeoJson, FeatureCollection } from "./map.model";
 import { Feature } from "geojson";
 import { Observable } from 'rxjs';
 
@@ -23,10 +23,11 @@ export class MapComponent implements OnInit {
   init = false;
   monument: mapboxgl.LngLatLike = [-122.414, 37.776];
 
-  features: Observable<mapboxgl.LngLatLike>;
+  features;
 
   ngOnInit(): void {
    this.features = this.mapService.fetchStudiesByLngLat(this.currentLngLat).subscribe();
+   console.log(this.features);
   }
 
   constructor(private mapService: MapService) {}
