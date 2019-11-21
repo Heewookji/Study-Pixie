@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Study } from './study.model';
 import { HttpClient } from '@angular/common/http';
 import { LngLatLike } from 'mapbox-gl';
 import { take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
-import { study } from 'src/app/studies/study.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MapService {
-
+export class StudyService {
+  
   private _studies = new BehaviorSubject<study[]>([]);
   
   constructor(private http: HttpClient) {}
@@ -22,5 +22,4 @@ export class MapService {
       )
       .pipe(take(1));
   }
-
 }

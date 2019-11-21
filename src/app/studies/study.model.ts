@@ -1,6 +1,6 @@
 import { LngLatLike } from 'mapbox-gl';
 
-export class study {
+export class Study {
     constructor(
       public id: string,
       public StudyLeaderId: string,

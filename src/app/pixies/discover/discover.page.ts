@@ -1,22 +1,37 @@
-import { Component, OnInit, Output, EventEmitter, Renderer2, ElementRef, ViewChild } from "@angular/core";
-
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { PixieService } from "../pixie.service";
+import { LngLatLike } from "mapbox-gl";
+import { Subscription } from "rxjs";
+import { Pixie } from "../pixie.model";
 
 @Component({
   selector: "app-discover",
   templateUrl: "./discover.page.html",
   styleUrls: ["./discover.page.scss"]
 })
-export class DiscoverPage implements OnInit {
+export class DiscoverPage implements OnInit, OnDestroy {
+  @ViewChild("map", { static: false }) map;
+  private currentLngLat: LngLatLike;
+  private pixieSub: Subscription;
+  loadedPixies: Pixie[];
 
-  @ViewChild('map', {static:false}) map;
+  constructor(private pixieService: PixieService) {}
 
-  constructor() {}
-
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.pixieSub = this.pixieService
+      .fetchPixiesByLngLat(this.currentLngLat)
+      .subscribe(pixies => {
+        this.loadedPixies = pixies;
+      });
+  }
   //온전한 출력을 위한 ionViewDidEnter가 child component에서 동작하지 않으므로, parent에서 해당 컴포넌트 메서드 호출
-  ionViewDidEnter(){
-    this.map.showMap();
+  ionViewDidEnter() {
+    this.map.showPixieMap(this.loadedPixies);
   }
 
+  ngOnDestroy() {
+    if (this.pixieSub) {
+      this.pixieSub.unsubscribe();
+    }
+  }
 }

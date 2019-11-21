@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PixiesService } from './pixies.service';
+import { PixieService } from './pixie.service';
 
 @Component({
   selector: 'app-pixies',
@@ -8,18 +8,7 @@ import { PixiesService } from './pixies.service';
 })
 export class PixiesPage implements OnInit {
 
-  constructor(private pixiesService : PixiesService) { }
-
+  constructor(private pixieService : PixieService) { }
   ngOnInit() {
   }
-
-  fetchPixiesByLocation(){
-
-    let keyword = prompt('keyword?');
-
-    this.pixiesService.fetchPixiesByLocation(keyword).subscribe(test=> {
-      console.log(test);
-    });
-  }
-
 }
