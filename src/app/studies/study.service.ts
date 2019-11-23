@@ -10,7 +10,7 @@ import { take } from 'rxjs/operators';
 })
 export class StudyService {
   
-  private _studies = new BehaviorSubject<study[]>([]);
+  private _studies = new BehaviorSubject<Study[]>([]);
   
   constructor(private http: HttpClient) {}
 

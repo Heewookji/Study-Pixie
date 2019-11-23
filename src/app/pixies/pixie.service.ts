@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Pixie } from "./pixie.model";
 import { LngLatLike } from "mapbox-gl";
-import { take, map } from "rxjs/operators";
+import { take, map, delay } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -35,11 +35,10 @@ export class PixieService {
 
     const pixies: Pixie[] = [];
     for (let i = 0; i < 10; i++) {
-      pixies.push(new Pixie("id"+i, "2", new Date(), [7 * i, -7 * i]));
+      pixies.push(new Pixie("id" + i, "2", new Date(), [7 * i, -7 * i]));
     }
     this._pixies.next(pixies);
-    
-    return this._pixies.asObservable();
-  
+
+    return this._pixies.asObservable().pipe(delay(2000));
   }
 }

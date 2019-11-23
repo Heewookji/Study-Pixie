@@ -73,28 +73,25 @@ export class MapComponent {
       //컨트롤 바 추가
       this.map.addControl(new mapboxgl.NavigationControl());
     }
-
-    this.init = true;
-
-    this.map.on("load", event => {
-      pixies.forEach(pixie => {
-        // create a HTML element for each feature
-        var el = document.createElement("div");
-        el.className = "marker";
-        el.style.backgroundImage =
-          "url(https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg)";
-        el.style.width = "10px";
-        el.style.height = "10px";
-        el.style.borderRadius = "50%";
-
-        // create the popup
-        var popup = new mapboxgl.Popup({ offset: 25 }).setText(pixie.id);
-        // make a marker for each feature and add to the map
-        new mapboxgl.Marker(el)
-          .setLngLat(pixie.lngLat)
-          .setPopup(popup) // sets a popup on this marker
-          .addTo(this.map);
-      });
+    pixies.forEach(pixie => {
+      // create a HTML element for each feature
+      var el = document.createElement("div");
+      el.className = "marker";
+      el.style.backgroundImage =
+        "url(https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg)";
+      el.style.width = "10px";
+      el.style.height = "10px";
+      el.style.borderRadius = "50%";
+  
+      // create the popup
+      var popup = new mapboxgl.Popup({ offset: 25 }).setText(pixie.id);
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el)
+        .setLngLat(pixie.lngLat)
+        .setPopup(popup) // sets a popup on this marker
+        .addTo(this.map);
     });
+    this.init = true;
   }
+
 }
