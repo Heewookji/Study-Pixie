@@ -28,3 +28,9 @@
 
 /* map style */
 @import "~mapbox-gl/dist/mapbox-gl.css";
+
+
+.no-scroll {
+    --overflow: hidden;
+}
+

@@ -27,7 +27,8 @@ export class MapComponent {
         container: "map",
         style: this.style,
         zoom: 13,
-        center: this.currentLngLat
+        center: this.currentLngLat,
+        attributionControl: false
       });
       //컨트롤 바 추가
       this.map.addControl(new mapboxgl.NavigationControl());
@@ -64,7 +65,8 @@ export class MapComponent {
       container: "map",
       style: this.style,
       zoom: 13,
-      center: this.currentLngLat
+      center: this.currentLngLat,
+      attributionControl: false
     });
     //컨트롤 바 추가
     this.map.addControl(new mapboxgl.NavigationControl());

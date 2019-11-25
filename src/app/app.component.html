@@ -1,3 +1,52 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>어서오세요!</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <!-- 누르면 메뉴가 닫힌다 -->
+        <ion-menu-toggle>
+          <ion-item routerLink="pixies/tabs/discover">
+            <ion-avatar slot="start">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <ion-label>
+              <h2>스터디픽시</h2>
+              <p>IT, 서비스</p>
+              <p>서울시 구로구 개봉2동</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none" routerLink="pixies/tabs/discover">
+            <ion-icon slot="start" name="map"></ion-icon>
+            <ion-label>근처 스터디</ion-label>
+          </ion-item>
+          <ion-item lines="none" routerLink="pixies/tabs/search">
+            <ion-icon slot="start" name="search"></ion-icon>
+            <ion-label>스터디 검색</ion-label>
+          </ion-item>
+          <ion-item lines="none" routerLink="pixies/tabs/discover">
+            <ion-icon slot="start" name="add"></ion-icon>
+            <ion-label>스터디 생성</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+          <ion-item slot="end" lines="none">
+            <ion-icon slot="start" name="exit"></ion-icon>
+            <ion-label>종료</ion-label>
+          </ion-item>
+      </ion-toolbar>
+    </ion-footer>
+
+  </ion-menu>
+
+  <ion-router-outlet main></ion-router-outlet>
+
 </ion-app>
