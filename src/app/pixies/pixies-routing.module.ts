@@ -37,7 +37,6 @@ const routes: Routes = [
     redirectTo: "/pixies/tabs/discover",
     pathMatch: "full"
   },
-  { path: 'search', loadChildren: './search/search.module#SearchPageModule' }
 ];
 
 
