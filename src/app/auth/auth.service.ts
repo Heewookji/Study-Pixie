@@ -11,4 +11,13 @@ export class AuthService {
     return true;
   }
 
+  login(){
+    
+  }
+
+  logout(){
+
+  }
+  
+  
 }

@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>auth</ion-title>
+    <ion-title>login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+  <!--ngForm, ngModel 사용을 위해 module.ts에서 폼 모듈을 import 해준다. -->
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Id</ion-label>
+            <ion-input required name="id" ngModel minlength="6" #idCtrl="ngModel"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!idCtrl.valid && idCtrl.touched" lines="none">
+              <ion-label>Should be a valid address</ion-label>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input required name="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 
 </ion-content>

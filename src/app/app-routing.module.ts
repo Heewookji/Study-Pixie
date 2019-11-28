@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  //로드할 것인지 결정하는 canLoad를 AuthGuard로 설정.
   { path: 'pixies', loadChildren: './pixies/pixies.module#PixiesPageModule', canLoad: [AuthGuard] },
   { path: 'discover', loadChildren: './pixies/discover/discover.module#DiscoverPageModule', canLoad: [AuthGuard] },
   { path: 'studies', loadChildren: './studies/studies.module#StudiesPageModule', canLoad: [AuthGuard] },
