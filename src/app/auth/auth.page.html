@@ -1,32 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>{{isLogin? "Login":"Signup"}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-  <!--ngForm, ngModel 사용을 위해 module.ts에서 폼 모듈을 import 해준다. -->
+
 <ion-content padding>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-grid fixed>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
-          <ion-item>
-            <ion-label position="floating">Id</ion-label>
-            <ion-input required name="id" ngModel minlength="6" #idCtrl="ngModel"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="!idCtrl.valid && idCtrl.touched" lines="none">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">E-mail</ion-label>
+              <ion-input type="email" required email ngModel name="email" #emailCtrl="ngModel"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
               <ion-label>Should be a valid address</ion-label>
             </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="Password" ngModel required name="password" minlength="6" #passwordCtrl="ngModel"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched" lines="none">
+              <ion-label>Should be at least 6 character</ion-label>
+            </ion-item>
+          </ion-list>
         </ion-col>
       </ion-row>
+
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input required name="password"></ion-input>
-          </ion-item>
+          <ion-button type="button" fill="clear" color="primary" expand="block" (click)="onSwitchAuthMode()">
+            Switch to {{isLogin ? "Signup":"Login"}}
+          </ion-button>
+          <ion-button type="submit" margin color="primary" expand="block" [disabled]="!f.valid">
+            {{isLogin? 'Login' : 'Signup'}}
+          </ion-button>
         </ion-col>
       </ion-row>
+
     </ion-grid>
   </form>
 
