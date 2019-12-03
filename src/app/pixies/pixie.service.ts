@@ -5,8 +5,7 @@ import { Pixie } from "./pixie.model";
 import { LngLatLike } from "mapbox-gl";
 import { take, map } from "rxjs/operators";
 
-
-interface PixieData{
+interface PixieData {
   id: string;
   image: string;
   registered: string;
@@ -27,7 +26,7 @@ export class PixieService {
 
   fetchPixiesByLngLat(lngLat: LngLatLike) {
     return this.http
-      .get<{ [key: string] :PixieData}>(
+      .get<{ [key: string]: PixieData }>(
         `http://127.0.0.1:8080/studyboot/app/json/pixie/fetch?lng=${lngLat[0]}&lat=${lngLat[1]}`
       )
       .pipe(
@@ -35,13 +34,41 @@ export class PixieService {
         map(resData => {
           const pixies: Pixie[] = [];
           for (const key in resData) {
-            if(resData.hasOwnProperty(key)){
-              pixies.push(new Pixie(
-                resData[key].id,
-                resData[key].image,
-                new Date(resData[key].registered),
-                resData[key].lngLat
-              ));
+            if (resData.hasOwnProperty(key)) {
+              pixies.push(
+                new Pixie(
+                  resData[key].id,
+                  resData[key].image,
+                  new Date(resData[key].registered),
+                  resData[key].lngLat
+                )
+              );
+            }
+          }
+          return pixies;
+        })
+      );
+  }
+
+  fetchPixiesByKeyword(keyword: string) {
+    return this.http
+      .get<{ [key: string]: PixieData }>(
+        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetch?keyword=${keyword}`
+      )
+      .pipe(
+        take(1),
+        map(resData => {
+          const pixies: Pixie[] = [];
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              pixies.push(
+                new Pixie(
+                  resData[key].id,
+                  resData[key].image,
+                  new Date(resData[key].registered),
+                  resData[key].lngLat
+                )
+              );
             }
           }
           return pixies;

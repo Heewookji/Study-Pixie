@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Pixie } from 'src/app/pixies/pixie.model';
+import { PixieService } from '../pixie.service';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPage implements OnInit {
 
-  constructor() { }
+  @ViewChild("searchbar", { static: false }) searchbar;
+  loadedPixies: Pixie[];
+  isLoading = false;
+
+  constructor(private pixieService: PixieService) { }
 
   ngOnInit() {
+  }
+  ionViewDidEnter(){
+    console.log(this.searchbar);
   }
 
 }
