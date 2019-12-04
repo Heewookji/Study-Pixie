@@ -75,4 +75,30 @@ export class PixieService {
         })
       );
   }
+
+  fetchPixiesByGrade(grade: number) {
+    return this.http
+      .get<{ [key: string]: PixieData }>(
+        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetch?grade=${grade}`
+      )
+      .pipe(
+        take(1),
+        map(resData => {
+          const pixies: Pixie[] = [];
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              pixies.push(
+                new Pixie(
+                  resData[key].id,
+                  resData[key].image,
+                  new Date(resData[key].registered),
+                  resData[key].lngLat
+                )
+              );
+            }
+          }
+          return pixies;
+        })
+      );
+  }
 }
