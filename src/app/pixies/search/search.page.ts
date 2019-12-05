@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  Renderer2,
+  ViewChildren,
+  QueryList
+} from "@angular/core";
 import { Pixie } from "src/app/pixies/pixie.model";
 import { PixieService } from "../pixie.service";
 import { Subscription } from "rxjs";
@@ -12,13 +20,15 @@ import { take } from "rxjs/operators";
 })
 export class SearchPage implements OnInit, OnDestroy {
   @ViewChild("searchbar", { static: false }) searchbar;
+  
   loadedPixies: Pixie[];
   private pixieSub: Subscription;
   isLoading = false;
 
   constructor(
     private pixieService: PixieService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -35,6 +45,8 @@ export class SearchPage implements OnInit, OnDestroy {
             loadingEl.dismiss();
           });
       });
+
+    this.renderer.listen(this.searchbar.nativeElement, "ionInput", handleInput);
   }
 
   ngOnDestroy() {
@@ -43,7 +55,13 @@ export class SearchPage implements OnInit, OnDestroy {
     }
   }
 
-  ionViewDidEnter() {
-    console.log(this.searchbar);
+  handleInput(event) {
+    const query = event.target.value.toLowerCase();
+    requestAnimationFrame(() => {
+      this.items.forEach(item => {
+        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+        this.renderer.setStyle(item.nativeElement, 'display', shouldShow ? "block" : "none" );
+      });
+    });
   }
 }

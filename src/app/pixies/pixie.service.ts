@@ -23,11 +23,10 @@ export class PixieService {
   get pixies() {
     return this._pixies.asObservable();
   }
-
   fetchPixiesByLngLat(lngLat: LngLatLike) {
     return this.http
       .get<{ [key: string]: PixieData }>(
-        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetch?lng=${lngLat[0]}&lat=${lngLat[1]}`
+        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetchByLngLat?lng=${lngLat[0]}&lat=${lngLat[1]}`
       )
       .pipe(
         take(1),
@@ -79,7 +78,7 @@ export class PixieService {
   fetchPixiesByGrade(grade: number) {
     return this.http
       .get<{ [key: string]: PixieData }>(
-        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetch?grade=${grade}`
+        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetchByGrade?grade=${grade}`
       )
       .pipe(
         take(1),
