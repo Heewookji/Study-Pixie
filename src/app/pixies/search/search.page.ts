@@ -20,7 +20,8 @@ import { take } from "rxjs/operators";
 })
 export class SearchPage implements OnInit, OnDestroy {
   @ViewChild("searchbar", { static: false }) searchbar;
-  
+  @ViewChildren("items") items;
+
   loadedPixies: Pixie[];
   private pixieSub: Subscription;
   isLoading = false;
@@ -46,7 +47,7 @@ export class SearchPage implements OnInit, OnDestroy {
           });
       });
 
-    this.renderer.listen(this.searchbar.nativeElement, "ionInput", handleInput);
+    this.renderer.listen(this.searchbar.nativeElement, "ionInput", this.handleInput);
   }
 
   ngOnDestroy() {

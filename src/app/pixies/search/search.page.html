@@ -14,7 +14,7 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let pixie of loadedPixies">
-      <ion-item detail lines="none">
+      <ion-item detail lines="none" #items>
         <ion-avatar slot="start">
           <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-img>
         </ion-avatar>
