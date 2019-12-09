@@ -5,7 +5,8 @@ import {
   OnDestroy,
   Renderer2,
   ViewChildren,
-  QueryList
+  QueryList,
+  ElementRef
 } from "@angular/core";
 import { Pixie } from "src/app/pixies/pixie.model";
 import { PixieService } from "../pixie.service";
@@ -19,9 +20,7 @@ import { take } from "rxjs/operators";
   styleUrls: ["./search.page.scss"]
 })
 export class SearchPage implements OnInit, OnDestroy {
-  @ViewChild("searchbar", { static: false }) searchbar;
-  @ViewChildren("items") items;
-
+  @ViewChild("searchbar", { static: false }) searchbar: ElementRef;
   loadedPixies: Pixie[];
   private pixieSub: Subscription;
   isLoading = false;
@@ -31,6 +30,12 @@ export class SearchPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController,
     private renderer: Renderer2
   ) {}
+
+  ngAfterViewInit() {
+    this.renderer.listen(this.searchbar.nativeElement, 'click', (evt) => {
+      alert(evt);
+    });
+  }
 
   ngOnInit() {
     this.loadingCtrl
@@ -46,8 +51,6 @@ export class SearchPage implements OnInit, OnDestroy {
             loadingEl.dismiss();
           });
       });
-
-    this.renderer.listen(this.searchbar.nativeElement, "ionInput", this.handleInput);
   }
 
   ngOnDestroy() {
@@ -56,13 +59,5 @@ export class SearchPage implements OnInit, OnDestroy {
     }
   }
 
-  handleInput(event) {
-    const query = event.target.value.toLowerCase();
-    requestAnimationFrame(() => {
-      this.items.forEach(item => {
-        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
-        this.renderer.setStyle(item.nativeElement, 'display', shouldShow ? "block" : "none" );
-      });
-    });
-  }
+  search() {}
 }
