@@ -6,7 +6,8 @@
     <ion-title>스터디를 검색하세요!</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="지역/분야/키워드 검색" #searchbar></ion-searchbar>
+  <!-- debounce로 지연시간을 준다.-->
+    <ion-searchbar placeholder="지역/분야/키워드 검색" #searchbar (ionChange)="onSearch($event)" debounce="300"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

@@ -4,15 +4,12 @@ import {
   ViewChild,
   OnDestroy,
   Renderer2,
-  ViewChildren,
-  QueryList,
   ElementRef
 } from "@angular/core";
 import { Pixie } from "src/app/pixies/pixie.model";
 import { PixieService } from "../pixie.service";
 import { Subscription } from "rxjs";
-import { LoadingController } from "@ionic/angular";
-import { take } from "rxjs/operators";
+import { LoadingController, IonSearchbar } from "@ionic/angular";
 
 @Component({
   selector: "app-search",
@@ -20,7 +17,7 @@ import { take } from "rxjs/operators";
   styleUrls: ["./search.page.scss"]
 })
 export class SearchPage implements OnInit, OnDestroy {
-  @ViewChild("searchbar", { static: false }) searchbar: ElementRef;
+  @ViewChild("searchbar", { static: false }) searchbar: IonSearchbar;
   loadedPixies: Pixie[];
   private pixieSub: Subscription;
   isLoading = false;
@@ -30,12 +27,6 @@ export class SearchPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController,
     private renderer: Renderer2
   ) {}
-
-  ngAfterViewInit() {
-    this.renderer.listen(this.searchbar.nativeElement, 'click', (evt) => {
-      alert(evt);
-    });
-  }
 
   ngOnInit() {
     this.loadingCtrl
@@ -59,5 +50,23 @@ export class SearchPage implements OnInit, OnDestroy {
     }
   }
 
-  search() {}
+  onSearch(event: any) {
+    this.loadingCtrl
+      .create({
+        message: "Please wait..."
+      })
+      .then(loadingEl => {
+        loadingEl.present();
+        this.pixieSub = this.pixieService
+          .fetchPixiesByKeyword(this.searchbar.value)
+          .subscribe(pixies => {
+            this.loadedPixies = pixies;
+            loadingEl.dismiss();
+            this.searchbar.setFocus();
+          });
+      }); 
+
+  }
+
+
 }

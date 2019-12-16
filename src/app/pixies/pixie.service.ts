@@ -52,7 +52,7 @@ export class PixieService {
   fetchPixiesByKeyword(keyword: string) {
     return this.http
       .get<{ [key: string]: PixieData }>(
-        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetch?keyword=${keyword}`
+        `http://127.0.0.1:8080/studyboot/app/json/pixie/fetchByKeyword?keyword=${keyword}`
       )
       .pipe(
         take(1),
