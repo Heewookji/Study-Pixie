@@ -5,6 +5,7 @@ import { StudyService } from "../../studies/study.service";
 import { FeatureCollection } from "./map.model";
 import { Pixie } from "src/app/pixies/pixie.model";
 import { LoadingController } from "@ionic/angular";
+import { Study } from 'src/app/studies/study.model';
 
 @Component({
   selector: "app-map",
@@ -21,39 +22,35 @@ export class MapComponent {
   constructor(private loadingCtrl: LoadingController) {}
 
   //ionViewDidEnter에 진입하고 맵을 출력한다.
-  showStudyMap() {
-      mapboxgl.accessToken = environment.mapboxAccessToken;
-      this.map = new mapboxgl.Map({
-        container: "map",
-        style: this.style,
-        zoom: 13,
-        center: this.currentLngLat,
-        attributionControl: false
-      });
-      //컨트롤 바 추가
-      this.map.addControl(new mapboxgl.NavigationControl());
+  showStudyMap(studies: Study[]) {
+      //맵 설정
+    mapboxgl.accessToken = environment.mapboxAccessToken;
+    this.map = new mapboxgl.Map({
+      container: "map",
+      style: this.style,
+      zoom: 13,
+      center: this.currentLngLat,
+      attributionControl: false
+    });
+    //컨트롤 바 추가
+    this.map.addControl(new mapboxgl.NavigationControl());
+    studies.forEach(study => {
+      // create a HTML element for each feature
+      var el = document.createElement("div");
+      el.className = "marker";
+      el.style.backgroundImage =
+        "url(https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg)";
+      el.style.width = "10px";
+      el.style.height = "10px";
+      el.style.borderRadius = "50%";
 
-    this.map.on("load", event => {
-      this.features.features.forEach(marker => {
-        // create a HTML element for each feature
-        var el = document.createElement("div");
-        el.className = "marker";
-        el.style.backgroundImage =
-          "url(https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg)";
-        el.style.width = "50px";
-        el.style.height = "50px";
-        el.style.borderRadius = "50%";
-
-        // create the popup
-        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-          "Construction on the Washington Monument began in 1848."
-        );
-        // make a marker for each feature and add to the map
-        var mark = new mapboxgl.Marker(el)
-          .setLngLat(marker.geometry.coordinates)
-          .setPopup(popup) // sets a popup on this marker
-          .addTo(this.map);
-      });
+      // create the popup
+      var popup = new mapboxgl.Popup({ offset: 25 }).setText(study.id + study.image);
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el)
+        .setLngLat(study.lngLat)
+        .setPopup(popup) // sets a popup on this marker
+        .addTo(this.map);
     });
   }
 

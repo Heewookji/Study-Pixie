@@ -14,14 +14,14 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let pixie of loadedPixies">
+    <ion-item-sliding *ngFor="let study of loadedStudies">
       <ion-item detail lines="none" #items>
         <ion-avatar slot="start">
           <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-img>
         </ion-avatar>
         <ion-label>
-          <h2>{{pixie.id}}</h2>
-          <p>{{pixie.image}}</p>
+          <h2>{{study.id}}</h2>
+          <p>{{study.image}}</p>
         </ion-label>
       </ion-item>
       <ion-item-options>

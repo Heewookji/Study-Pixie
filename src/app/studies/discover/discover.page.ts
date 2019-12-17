@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
-import { PixieService } from "../pixie.service";
 import { LngLatLike } from "mapbox-gl";
 import { Subscription } from "rxjs";
-import { Pixie } from "../pixie.model";
+import { Study } from "../study.model";
 import { LoadingController } from "@ionic/angular";
+import { StudyService } from '../study.service';
 
 @Component({
   selector: "app-discover",
@@ -13,12 +13,12 @@ import { LoadingController } from "@ionic/angular";
 export class DiscoverPage implements OnInit, OnDestroy {
   @ViewChild("map", { static: false }) map;
   private currentLngLat: LngLatLike;
-  private pixieSub: Subscription;
-  loadedPixies: Pixie[];
+  private studySub: Subscription;
+  loadedStudies: Study[];
   private initMap = false;
 
   constructor(
-    private pixieService: PixieService,
+    private studyService: StudyService,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -34,21 +34,20 @@ export class DiscoverPage implements OnInit, OnDestroy {
         message: "Please wait..."
       }).then(loadingEl => {
         loadingEl.present();
-        this.pixieSub = this.pixieService
-        .fetchPixiesByLngLat(this.currentLngLat)
-        .subscribe(pixies => {
-          this.loadedPixies = pixies;
-          this.map.showPixieMap(pixies);
+        this.studySub = this.studyService
+        .fetchStudiesByLngLat(this.currentLngLat)
+        .subscribe(studies => {
+          this.loadedStudies = studies;
+          this.map.showStudyMap(studies);
           this.initMap = true;
           loadingEl.dismiss();
         });
       });
     }
   }
-
   ngOnDestroy() {
-    if (this.pixieSub) {
-      this.pixieSub.unsubscribe();
+    if (this.studySub) {
+      this.studySub.unsubscribe();
     }
   }
 }

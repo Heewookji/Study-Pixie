@@ -3,12 +3,12 @@ import { LngLatLike } from 'mapbox-gl';
 export class Study {
     constructor(
       public id: string,
-      public StudyLeaderId: string,
-      public Title: string,
-      public Image: string,
+      public studyLeaderId: string,
+      public title: string,
+      public image: string,
       public memberNumber: number,
-      public From: Date,
-      public To: Date,
+      public from: Date,
+      public to: Date,
       public lngLat: LngLatLike
     ){}
   }

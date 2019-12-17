@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { PixiesPage } from "./pixies.page";
+import { StudiesPage } from "./studies.page";
 
 const routes: Routes = [
   {
     path: "tabs",
-    component: PixiesPage,
+    component: StudiesPage,
     children: [
       {
         path: "discover",
@@ -27,14 +27,14 @@ const routes: Routes = [
       },
       {
         path: "",
-        redirectTo: "/pixies/tabs/discover",
+        redirectTo: "/studies/tabs/discover",
         pathMatch: "full"
       }
     ]
   },
   {
     path: "",
-    redirectTo: "/pixies/tabs/discover",
+    redirectTo: "/studies/tabs/discover",
     pathMatch: "full"
   },
 ];
@@ -45,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PixiesRoutingModule {}
+export class StudiesRoutingModule {}

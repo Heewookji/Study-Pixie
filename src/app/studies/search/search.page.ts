@@ -3,13 +3,11 @@ import {
   OnInit,
   ViewChild,
   OnDestroy,
-  Renderer2,
-  ElementRef
 } from "@angular/core";
-import { Pixie } from "src/app/pixies/pixie.model";
-import { PixieService } from "../pixie.service";
 import { Subscription } from "rxjs";
 import { LoadingController, IonSearchbar } from "@ionic/angular";
+import { Study } from '../study.model';
+import { StudyService } from '../study.service';
 
 @Component({
   selector: "app-search",
@@ -18,14 +16,13 @@ import { LoadingController, IonSearchbar } from "@ionic/angular";
 })
 export class SearchPage implements OnInit, OnDestroy {
   @ViewChild("searchbar", { static: false }) searchbar: IonSearchbar;
-  loadedPixies: Pixie[];
-  private pixieSub: Subscription;
+  loadedStudies: Study[];
+  private studySub: Subscription;
   isLoading = false;
 
   constructor(
-    private pixieService: PixieService,
-    private loadingCtrl: LoadingController,
-    private renderer: Renderer2
+    private studyService: StudyService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -35,21 +32,22 @@ export class SearchPage implements OnInit, OnDestroy {
       })
       .then(loadingEl => {
         loadingEl.present();
-        this.pixieSub = this.pixieService
-          .fetchPixiesByGrade(10)
-          .subscribe(pixies => {
-            this.loadedPixies = pixies;
+        this.studySub = this.studyService
+          .fetchStudiesByGrade(10)
+          .subscribe(studies => {
+            this.loadedStudies = studies;
             loadingEl.dismiss();
           });
       });
   }
 
   ngOnDestroy() {
-    if (this.pixieSub) {
-      this.pixieSub.unsubscribe();
+    if (this.studySub) {
+      this.studySub.unsubscribe();
     }
   }
 
+  //searchbar 내용이 바뀔 때마다 ajax로 해당 키워드 스터디를 가져온다.
   onSearch(event: any) {
     this.loadingCtrl
       .create({
@@ -57,10 +55,10 @@ export class SearchPage implements OnInit, OnDestroy {
       })
       .then(loadingEl => {
         loadingEl.present();
-        this.pixieSub = this.pixieService
-          .fetchPixiesByKeyword(this.searchbar.value)
-          .subscribe(pixies => {
-            this.loadedPixies = pixies;
+        this.studySub = this.studyService
+          .fetchStudiesByKeyword(this.searchbar.value)
+          .subscribe(studies => {
+            this.loadedStudies = studies;
             loadingEl.dismiss();
             this.searchbar.setFocus();
           });
