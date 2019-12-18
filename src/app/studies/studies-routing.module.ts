@@ -13,6 +13,10 @@ const routes: Routes = [
           {
             path: "",
             loadChildren: "./discover/discover.module#DiscoverPageModule"
+          },
+          {
+            path: ":studyId",
+            loadChildren: "./detail/detail.module#DetailPageModule"
           }
         ]
       },
@@ -22,6 +26,10 @@ const routes: Routes = [
           {
             path: "",
             loadChildren: "./search/search.module#SearchPageModule"
+          },
+          {
+            path: ":studyId",
+            loadChildren: "./detail/detail.module#DetailPageModule"
           }
         ]
       },
@@ -37,6 +45,7 @@ const routes: Routes = [
     redirectTo: "/studies/tabs/discover",
     pathMatch: "full"
   },
+  { path: 'detail', loadChildren: './detail/detail.module#DetailPageModule' },
 ];
 
 
