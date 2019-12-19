@@ -9,6 +9,8 @@ import { NavController } from '@ionic/angular';
 })
 export class DetailPage implements OnInit {
 
+  studyId: string;
+
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController
@@ -20,7 +22,7 @@ export class DetailPage implements OnInit {
         this.navCtrl.navigateBack("../");
         return;
       }
-      console.log(paramMap);
+      this.studyId = paramMap.get('studyId');
     })
   }
 

@@ -22,9 +22,7 @@ export class MapComponent {
   features: FeatureCollection;
 
   constructor(
-    private loadingCtrl: LoadingController,
-    private router: Router,
-    private renderer: Renderer2
+    private loadingCtrl: LoadingController
   ) {}
 
   //ionViewDidEnter에 진입하고 맵을 출력한다.
@@ -53,7 +51,7 @@ export class MapComponent {
       //`<p>${study.id}</p><button onclick="navigateToDetail(${study.id})">자세히</button>`;
 
       // create the popup
-      var popup = new mapboxgl.Popup({ offset: 25 });
+      var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<p>${study.id}</p><ion-button onclick="navigateToDetail(${study.id})">자세히</ion-button>`);
       // make a marker for each feature and add to the map
       new mapboxgl.Marker(el)
         .setLngLat(study.lngLat)
@@ -97,7 +95,5 @@ export class MapComponent {
     });
   }
 
-  navigateToDetail(studyId: string) {
-    this.router.navigate(["/", "studies", "tabs", "discover", studyId]);
-  }
+ 
 }

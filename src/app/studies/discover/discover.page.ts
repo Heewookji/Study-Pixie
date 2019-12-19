@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { Study } from "../study.model";
 import { LoadingController } from "@ionic/angular";
 import { StudyService } from '../study.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-discover",
@@ -19,7 +20,8 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   constructor(
     private studyService: StudyService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) {}
 
   ngOnInit() {}
