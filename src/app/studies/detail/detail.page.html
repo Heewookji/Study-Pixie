@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button menu="main"></ion-menu-button>
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="backPage"></ion-back-button>
+      </ion-buttons>
     </ion-buttons>
     <ion-title>{{studyId}}</ion-title>
   </ion-toolbar>

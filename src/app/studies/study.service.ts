@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Study } from './study.model';
 import { HttpClient } from '@angular/common/http';
 import { LngLatLike } from 'mapbox-gl';
-import { take, map } from 'rxjs/operators';
+import { take, map, delay } from 'rxjs/operators';
 
 interface StudyData {
   id: string,

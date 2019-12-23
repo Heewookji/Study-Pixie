@@ -1,13 +1,8 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  OnDestroy,
-} from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LoadingController, IonSearchbar } from "@ionic/angular";
-import { Study } from '../study.model';
-import { StudyService } from '../study.service';
+import { Study } from "../study.model";
+import { StudyService } from "../study.service";
 
 @Component({
   selector: "app-search",
@@ -55,16 +50,23 @@ export class SearchPage implements OnInit, OnDestroy {
       })
       .then(loadingEl => {
         loadingEl.present();
-        this.studySub = this.studyService
-          .fetchStudiesByKeyword(this.searchbar.value)
-          .subscribe(studies => {
-            this.loadedStudies = studies;
-            loadingEl.dismiss();
-            this.searchbar.setFocus();
-          });
-      }); 
-
+        if (event.detail.value.length != 0) {
+          this.studySub = this.studyService
+            .fetchStudiesByKeyword(this.searchbar.value)
+            .subscribe(studies => {
+              this.loadedStudies = studies;
+              loadingEl.dismiss();
+              this.searchbar.setFocus();
+            });
+        } else {
+          this.studySub = this.studyService
+            .fetchStudiesByGrade(10)
+            .subscribe(studies => {
+              this.loadedStudies = studies;
+              loadingEl.dismiss();
+              this.searchbar.setFocus();
+            });
+        }
+      });
   }
-
-
 }

@@ -48,7 +48,9 @@ export class MapComponent {
       el.style.height = "10px";
       el.style.borderRadius = "50%";
 
-      //`<p>${study.id}</p><button onclick="navigateToDetail(${study.id})">자세히</button>`;
+      let html = `<p>${study.id}</p><button onclick="navigateToDetail(${study.id})">자세히</button>`;
+
+    
 
       // create the popup
       var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<p>${study.id}</p><ion-button onclick="navigateToDetail(${study.id})">자세히</ion-button>`);
