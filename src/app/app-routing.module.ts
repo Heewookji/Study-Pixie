@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   //로드할 것인지 결정하는 canLoad를 AuthGuard로 설정.
   { path: 'pixies', loadChildren: './pixies/pixies.module#PixiesPageModule', canLoad: [AuthGuard] },
-  { path: 'studies', loadChildren: './studies/studies.module#StudiesPageModule', canLoad: [AuthGuard] },
+  { path: 'studies', loadChildren: './studies/studies.module#StudiesPageModule', canLoad: [AuthGuard] }
 ];
 
 
