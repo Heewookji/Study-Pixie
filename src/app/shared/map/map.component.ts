@@ -1,13 +1,10 @@
 import { Component, Renderer2 } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import * as mapboxgl from "mapbox-gl";
-import { StudyService } from "../../studies/study.service";
 import { FeatureCollection } from "./map.model";
 import { Pixie } from "src/app/pixies/pixie.model";
 import { LoadingController } from "@ionic/angular";
 import { Study } from "src/app/studies/study.model";
-import { Router } from "@angular/router";
-import { rendererTypeName } from "@angular/compiler";
 
 @Component({
   selector: "app-map",
@@ -21,9 +18,7 @@ export class MapComponent {
   currentLngLat: mapboxgl.LngLatLike = [21, -21];
   features: FeatureCollection;
 
-  constructor(
-    private loadingCtrl: LoadingController
-  ) {}
+  constructor(private loadingCtrl: LoadingController) {}
 
   //ionViewDidEnter에 진입하고 맵을 출력한다.
   showStudyMap(studies: Study[]) {
@@ -48,12 +43,14 @@ export class MapComponent {
       el.style.height = "10px";
       el.style.borderRadius = "50%";
 
-      let html = `<p>${study.id}</p><button onclick="navigateToDetail(${study.id})">자세히</button>`;
-
-    
+      var popupContent = document.createElement("div");
+      popupContent.innerHTML =
+      `<p>${study.id}</p><ion-button onclick="navigateToDetail(${study.id})">자세히</ion-button>`;
 
       // create the popup
-      var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<p>${study.id}</p><ion-button onclick="navigateToDetail(${study.id})">자세히</ion-button>`);
+      var popup = new mapboxgl.Popup({ offset: 25 }).setDOMContent(popupContent);
+    
+      //.setHTML(`<p>${study.id}</p><ion-button onclick="navigateToDetail(${study.id})">자세히</ion-button>`);
       // make a marker for each feature and add to the map
       new mapboxgl.Marker(el)
         .setLngLat(study.lngLat)
@@ -97,5 +94,7 @@ export class MapComponent {
     });
   }
 
- 
+  navigateToDetail(studyId: number) {
+    alert(studyId);
+  }
 }

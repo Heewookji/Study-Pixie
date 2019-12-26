@@ -52,4 +52,5 @@ export class DiscoverPage implements OnInit, OnDestroy {
       this.studySub.unsubscribe();
     }
   }
+  
 }
