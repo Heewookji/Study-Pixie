@@ -23,7 +23,7 @@ export class SearchPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadingCtrl
       .create({
-        message: "Please wait..."
+        message: "잠시 기다려주세요.."
       })
       .then(loadingEl => {
         loadingEl.present();
@@ -46,7 +46,7 @@ export class SearchPage implements OnInit, OnDestroy {
   onSearch(event: any) {
     this.loadingCtrl
       .create({
-        message: "Please wait..."
+        message: "잠시 기다려주세요.."
       })
       .then(loadingEl => {
         loadingEl.present();

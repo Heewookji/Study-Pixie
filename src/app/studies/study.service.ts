@@ -8,7 +8,7 @@ import { take, map, delay } from 'rxjs/operators';
 interface StudyData {
   id: string,
   studyLeaderId: string,
-  title: string,
+  name: string,
   image: string,
   memberNumber: number,
   from: string,
@@ -45,7 +45,7 @@ export class StudyService {
               new Study(
                 resData[key].id,
                 resData[key].studyLeaderId,
-                resData[key].title,
+                resData[key].name,
                 resData[key].image,
                 resData[key].memberNumber,
                 new Date(resData[key].from),
@@ -75,7 +75,7 @@ export class StudyService {
                 new Study(
                   resData[key].id,
                   resData[key].studyLeaderId,
-                  resData[key].title,
+                  resData[key].name,
                   resData[key].image,
                   resData[key].memberNumber,
                   new Date(resData[key].from),
@@ -105,7 +105,7 @@ export class StudyService {
                 new Study(
                   resData[key].id,
                   resData[key].studyLeaderId,
-                  resData[key].title,
+                  resData[key].name,
                   resData[key].image,
                   resData[key].memberNumber,
                   new Date(resData[key].from),

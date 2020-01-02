@@ -33,7 +33,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
     if(!this.initMap){
       this.loadingCtrl.create({
-        message: "Please wait..."
+        message: "잠시 기다려주세요.."
       }).then(loadingEl => {
         loadingEl.present();
         this.studySub = this.studyService

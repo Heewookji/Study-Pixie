@@ -4,7 +4,7 @@ export class Study {
     constructor(
       public id: string,
       public studyLeaderId: string,
-      public title: string,
+      public name: string,
       public image: string,
       public memberNumber: number,
       public from: Date,
