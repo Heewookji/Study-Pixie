@@ -5,12 +5,10 @@
 }
 
 .picker{
-    width: 30rem;
-    max-width: 80%;
     height: 20rem;
     max-height: 30vh;
-    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--ion-color-light);
 }

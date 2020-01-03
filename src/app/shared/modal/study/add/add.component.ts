@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: "app-add",
@@ -7,11 +9,22 @@ import { ModalController } from "@ionic/angular";
   styleUrls: ["./add.component.scss"]
 })
 export class AddComponent implements OnInit {
+
+  @ViewChild("f",null) form: NgForm;
+  startDate: string;
+  endDate: string;
+
+
+  
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
 
   dismissModal() {
     this.modalCtrl.dismiss();
+  }
+
+  onCreateStudy(){
+    console.log("create!");
   }
 }

@@ -1,13 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>스터디 생성</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">취소</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <form onsubmit="processForm(event)">
+
+  <form (ngSubmit)="onCreateStudy()" #f="ngForm">
     <ion-grid fixed>
 
       <ion-row>
@@ -15,7 +16,7 @@
           <ion-item>
             <ion-label position="stacked">이름 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-input required formControlName="name" type="text"></ion-input>
+            <ion-input required ="name" type="text"></ion-input>
           </ion-item>
         </ion-col>
 
@@ -32,7 +33,34 @@
             </ion-select>
           </ion-item>
         </ion-col>
+      </ion-row>
 
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label position="stacked">시작 날짜 <ion-text color="danger">*</ion-text></ion-label>
+              <ion-datetime display-format="MMM DD YYYY"
+              picker-format="YY MMM DD"
+              [ngModel]="startDate"
+              name="date-from"
+              required
+              #startDateCtrl="ngModel"
+              cancelText="취소"
+              doneText="선택"></ion-datetime>
+            </ion-item>
+        </ion-col>
+        <ion-col size-sm="3">
+            <ion-item>
+              <ion-label position="stacked">종료 날짜 <ion-text color="danger">*</ion-text></ion-label>
+                <ion-datetime display-format="MMM DD YYYY"
+                picker-format="YY MMM DD"
+                [ngModel]="endDate"
+                name="date-to"
+                required 
+                cancelText="취소"
+                doneText="선택"></ion-datetime>
+              </ion-item>
+          </ion-col>
       </ion-row>
 
       <ion-row>
@@ -45,11 +73,18 @@
         </ion-col>
       </ion-row>
 
+
+      <ion-row margin-top>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-locatin-picker></app-locatin-picker>
+        </ion-col>
+      </ion-row>
+   
+
       <div margin-top>
-        <ion-button expand="block" type="submit" class="ion-no-margin">Create account</ion-button>
+        <ion-button expand="block" type="submit" class="ion-no-margin">생성</ion-button>
       </div>
 
-      <app-locatin-picker></app-locatin-picker>
 
     </ion-grid>
   </form>

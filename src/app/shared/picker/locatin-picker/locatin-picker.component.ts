@@ -16,7 +16,7 @@ export class LocatinPickerComponent implements OnInit {
   ngOnInit() {}
 
   onPickLocation(){
-
+console.log(1);
   }
 
 }
