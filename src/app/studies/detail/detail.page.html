@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-buttons slot="start">
-        <ion-back-button [defaultHref]="backPage" text="뒤로"></ion-back-button>
+        <ion-back-button [defaultHref]="referer" text="뒤로"></ion-back-button>
       </ion-buttons>
     </ion-buttons>
     <ion-title>{{studyId}}</ion-title>
@@ -12,12 +12,12 @@
 <ion-content padding>
 
 
-  <ion-grid fixed>
+  <ion-grid fixed *ngIf="!isLoading">
 
     <ion-row>
       <ion-list-header>설명</ion-list-header>
       <ion-col size-sm="6" offset-sm="3" text-center>
-        <p>스터디에 대한 설명</p>
+      <p>{{study.description}}</p>
       </ion-col>
     </ion-row>
 
@@ -39,7 +39,7 @@
           <img src="/assets/person.png">
         </ion-avatar>
         <ion-label>
-          <h3>최지환</h3>
+          <h3>이지환</h3>
           <p>반갑습니다! 잘부탁드려요</p>
         </ion-label>
       </ion-item>
@@ -63,8 +63,14 @@
           <p>반갑습니다! 잘부탁드려요</p>
         </ion-label>
       </ion-item>
-
     </ion-list>
+
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" no-padding>
+        <!--<ion-img role="button" (click)="onShowFullMap()" class="location-image" [src]="study.location.staticMapImageUrl"></ion-img>-->
+       </ion-col>
+    </ion-row>
 
   </ion-grid>
 

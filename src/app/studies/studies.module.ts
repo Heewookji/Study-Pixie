@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { StudiesPage } from './studies.page';
 import { StudiesRoutingModule } from './studies-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({

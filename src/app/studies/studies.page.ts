@@ -9,7 +9,7 @@ export class StudiesPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(){
   }
 
 }
