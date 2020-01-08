@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { MapModalComponent } from '../../modal/map-modal/map-modal.component';
 
 @Component({
   selector: 'app-locatin-picker',
@@ -11,12 +13,16 @@ export class LocatinPickerComponent implements OnInit {
   showPreview: boolean = false;
   selectedLocationImage: string;
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
   onPickLocation(){
-console.log(1);
+    this.modalCtrl.create({
+      component: MapModalComponent
+    }).then(modalEl => {
+      modalEl.present();
+    });
   }
 
 }

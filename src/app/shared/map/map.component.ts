@@ -1,7 +1,6 @@
 import { Component, Renderer2 } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import * as mapboxgl from "mapbox-gl";
-import { FeatureCollection } from "./map.model";
 import { Pixie } from "src/app/pixies/pixie.model";
 import { LoadingController } from "@ionic/angular";
 import { Study } from "src/app/studies/study.model";
@@ -16,7 +15,6 @@ export class MapComponent {
   style = "mapbox://styles/devserv/ck34b1p5i1bpp1cl32nylbsw7";
   // style = "mapbox://styles/mapbox/light-v10";
   currentLngLat: mapboxgl.LngLatLike = [21, -21];
-  features: FeatureCollection;
 
   constructor(private loadingCtrl: LoadingController) {}
 
@@ -96,5 +94,19 @@ export class MapComponent {
 
   navigateToDetail(studyId: number) {
     alert(studyId);
+  }
+
+
+  showSelectMap(){
+    //맵 설정
+    this.map = new mapboxgl.Map({
+      container: "map",
+      style: this.style,
+      zoom: 13,
+      center: this.currentLngLat,
+      attributionControl: false
+    });
+    //컨트롤 바 추가
+    this.map.addControl(new mapboxgl.NavigationControl());
   }
 }
