@@ -7,7 +7,7 @@ import { ModalController, LoadingController } from "@ionic/angular";
   styleUrls: ["./map-modal.component.scss"]
 })
 export class MapModalComponent implements OnInit {
-  @ViewChild("modalMap", { static: false }) modalMap;
+  @ViewChild("modalMap", { static: true }) modalMap;
   private initMap = false;
 
   constructor(
