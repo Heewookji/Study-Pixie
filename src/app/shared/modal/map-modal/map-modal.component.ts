@@ -7,7 +7,7 @@ import { ModalController, LoadingController } from "@ionic/angular";
   styleUrls: ["./map-modal.component.scss"]
 })
 export class MapModalComponent implements OnInit {
-  @ViewChild("modalMap", { static: true }) modalMap;
+  @ViewChild("map", { static: true }) map;
   private initMap = false;
 
   constructor(
@@ -25,7 +25,7 @@ export class MapModalComponent implements OnInit {
         })
         .then(loadingEl => {
           loadingEl.present();
-          this.modalMap.showSelectMap();
+          this.map.showSelectMap();
           this.initMap = true;
           loadingEl.dismiss();
         });
