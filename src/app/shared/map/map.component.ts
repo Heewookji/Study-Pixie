@@ -16,16 +16,9 @@ export class MapComponent {
   style = "mapbox://styles/devserv/ck34b1p5i1bpp1cl32nylbsw7";
   // style = "mapbox://styles/mapbox/light-v10";
   currentLngLat: mapboxgl.LngLatLike = [21, -21];
-  mapType: string;
 
   constructor(private loadingCtrl: LoadingController, private router: Router ) {}
 
-  ngOnInit(): void {
-    this.mapType = this.router.url.substring(
-      0,
-      this.router.url.lastIndexOf("/")
-    );
-  }
 
   //ionViewDidEnter에 진입하고 맵을 출력한다.
   showStudyMap(studies: Study[]) {
@@ -72,7 +65,7 @@ export class MapComponent {
     //맵 설정
     (mapboxgl as typeof mapboxgl).accessToken = environment.mapboxAccessToken;
     this.map = new mapboxgl.Map({
-      container: this.mapType,
+      container: "map",
       style: this.style,
       zoom: 13,
       center: this.currentLngLat,
@@ -106,17 +99,5 @@ export class MapComponent {
     alert(studyId);
   }
 
-  showSelectMap() {
-    //맵 설정
-    (mapboxgl as typeof mapboxgl).accessToken = environment.mapboxAccessToken;
-    this.map = new mapboxgl.Map({
-      container: this.mapType,
-      style: this.style,
-      zoom: 13,
-      center: this.currentLngLat,
-      attributionControl: false
-    });
-    //컨트롤 바 추가
-    this.map.addControl(new mapboxgl.NavigationControl());
-  }
+  
 }
