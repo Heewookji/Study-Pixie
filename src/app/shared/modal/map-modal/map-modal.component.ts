@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalController, LoadingController } from "@ionic/angular";
+import { LngLatLike } from 'mapbox-gl';
 
 @Component({
   selector: "app-map-modal",
@@ -9,6 +10,7 @@ import { ModalController, LoadingController } from "@ionic/angular";
 export class MapModalComponent implements OnInit {
   @ViewChild("map", { static: true }) map;
   private initMap = false;
+  selectedLocation: LngLatLike;
 
   constructor(
     private modalCtrl: ModalController,
@@ -35,4 +37,13 @@ export class MapModalComponent implements OnInit {
   dismissModal() {
     this.modalCtrl.dismiss();
   }
+
+  selectLocation(lngLat: LngLatLike){
+    this.selectedLocation = lngLat;
+  }
+
+  confirmSelect(){
+    alert(this.selectedLocation);
+  }
+
 }

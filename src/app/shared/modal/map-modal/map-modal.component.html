@@ -5,8 +5,11 @@
     <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">취소</ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirmSelect()">선택</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select-map #map></app-select-map>
+  <app-select-map #map (locationPick)="selectLocation($event)"></app-select-map>
 </ion-content>
