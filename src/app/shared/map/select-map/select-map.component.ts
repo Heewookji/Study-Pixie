@@ -22,6 +22,7 @@ export class SelectMapComponent implements OnInit {
   ngOnInit() {}
 
   showSelectMap() {
+
     //맵 설정
     (mapboxgl as typeof mapboxgl).accessToken = environment.mapboxAccessToken;
     this.map = new mapboxgl.Map({
@@ -46,6 +47,8 @@ export class SelectMapComponent implements OnInit {
     this.marker = new mapboxgl.Marker(el)
     .setLngLat(this.currentLngLat)
     .addTo(this.map);
+
+    this.locationPick.emit(this.currentLngLat);
 
     //클릭했을 때, 마커를 옮긴다.
     this.map.on('click', event => {

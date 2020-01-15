@@ -2,7 +2,7 @@
 <div class="picker" (click)="onPickLocation()" *ngIf="(!selectedLocationImage || !showPreview)  && !isLoading" justify-content-center>
   <ion-spinner name="bubbles" color="primary" *ngIf="isLoading"></ion-spinner>
   <ion-img class="location-image" (click)="onPickLocation()" [src]="selectedLocationImage"
-    *ngIf="selectedLocationImage && !isLoading && showPreview"></ion-img>
+    *ngIf="selectedLocationImage && !isLoading"></ion-img>
   <ion-button fill="clear">
     <ion-icon slot="icon-only" name="pin"></ion-icon>
   </ion-button>

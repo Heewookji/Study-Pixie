@@ -4,10 +4,10 @@ import { MapModalComponent } from '../../modal/map-modal/map-modal.component';
 
 @Component({
   selector: 'app-locatin-picker',
-  templateUrl: './locatin-picker.component.html',
-  styleUrls: ['./locatin-picker.component.scss'],
+  templateUrl: './location-picker.component.html',
+  styleUrls: ['./location-picker.component.scss'],
 })
-export class LocatinPickerComponent implements OnInit {
+export class LocationPickerComponent implements OnInit {
 
   isLoading: boolean = false;
   showPreview: boolean = false;
@@ -22,7 +22,10 @@ export class LocatinPickerComponent implements OnInit {
       component: MapModalComponent
     }).then(modalEl => {
       modalEl.present();
-    });
+      return modalEl.onDidDismiss();
+    }).then(result => {
+      this.selectedLocationImage = result.data;
+    })
   }
 
 }
