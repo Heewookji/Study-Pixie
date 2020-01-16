@@ -49,7 +49,7 @@ export class MapModalComponent implements OnInit {
   //제출시에 static image를 받아온다.
   confirmSelect(){
    this.modalCtrl
-   .dismiss(`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/-76.2047,38.7948,5/300x200?access_token=${environment.mapboxAccessToken}`);
+   .dismiss(`https://api.mapbox.com/v4/mapbox.emerald/pin-m-0+008cff(-73.7638,42.6564)/-73.7638,42.6564,13/300x200@2x.png?access_token=${environment.mapboxAccessToken}`);
     //(`https://api.mapbox.com/styles/v1/${}/${}/static/-75.953,42.1165,4.76/300x200?access_token=${environment.mapboxAccessToken}`)
    
   }

@@ -24,7 +24,9 @@ export class LocationPickerComponent implements OnInit {
       modalEl.present();
       return modalEl.onDidDismiss();
     }).then(result => {
-      this.selectedLocationImage = result.data;
+      if(result.data != undefined){
+        this.selectedLocationImage = result.data;
+      }
     })
   }
 
