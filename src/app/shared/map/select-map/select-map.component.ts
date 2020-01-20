@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
-import { LngLatLike } from 'mapbox-gl';
 
 @Component({
   selector: 'app-select-map',
@@ -11,18 +10,18 @@ import { LngLatLike } from 'mapbox-gl';
 export class SelectMapComponent implements OnInit {
 
    //LngLat 담은 이벤트를 상위 컴포넌트 html에서 쓸수 있도록 넘겨준다.
-  @Output() locationPick = new EventEmitter<LngLatLike>();
+  @Output() locationPick = new EventEmitter<mapboxgl.LngLat>();
   map: mapboxgl.Map;
   style = "mapbox://styles/devserv/ck34b1p5i1bpp1cl32nylbsw7";
-  currentLngLat: mapboxgl.LngLatLike = [21, -21];
+  currentLngLat: mapboxgl.LngLat;
   marker: mapboxgl.Marker;
 
   constructor() { }
 
   ngOnInit() {}
 
-  showSelectMap() {
-
+  showSelectMap(selectedLocationLngLat: mapboxgl.LngLat) {
+    alert(selectedLocationLngLat);
     //맵 설정
     (mapboxgl as typeof mapboxgl).accessToken = environment.mapboxAccessToken;
     this.map = new mapboxgl.Map({

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
 import { ModalController, LoadingController } from "@ionic/angular";
-import { LngLatLike } from 'mapbox-gl';
-import { HttpClient } from '@angular/common/http';
+import {  LngLat } from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,11 +8,12 @@ import { environment } from 'src/environments/environment';
   templateUrl: "./map-modal.component.html",
   styleUrls: ["./map-modal.component.scss"]
 })
+
+
 export class MapModalComponent implements OnInit {
   @ViewChild("map", { static: true }) map;
   private initMap = false;
-  selectedLocation: LngLatLike;
-  @Output() selectedLocationImage: EventEmitter<string>;
+  @Input() selectedLocationLngLat: LngLat;
 
   constructor(
     private modalCtrl: ModalController,
@@ -23,6 +23,7 @@ export class MapModalComponent implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
+    alert(this.selectedLocationLngLat);
     if (!this.initMap) {
       this.loadingCtrl
         .create({
@@ -30,7 +31,7 @@ export class MapModalComponent implements OnInit {
         })
         .then(loadingEl => {
           loadingEl.present();
-          this.map.showSelectMap();
+          this.map.showSelectMap(this.selectedLocationLngLat);
           this.initMap = true;
           loadingEl.dismiss();
         });
@@ -42,16 +43,18 @@ export class MapModalComponent implements OnInit {
   }
 
   //선택시마다 lnglat을 select map 컴포넌트에서 받아 저장한다.
-  selectLocation(lngLat: LngLatLike){
-    this.selectedLocation = lngLat;
+  selectLocation(lngLat: LngLat){
+    this.selectedLocationLngLat = lngLat;
   }
 
-  //제출시에 static image를 받아온다.
+  //제출시에 이미지 url과 lngLat을 넘겨준다.
   confirmSelect(){
+    
+    let returnData = { image: `https://api.mapbox.com/v4/mapbox.emerald/pin-m-0+008cff(${this.selectedLocationLngLat.lat},${this.selectedLocationLngLat.lng})/${this.selectedLocationLngLat.lat},${this.selectedLocationLngLat.lng},13/300x200@2x.png?access_token=${environment.mapboxAccessToken}`,
+  lngLat: this.selectedLocationLngLat }
    this.modalCtrl
-   .dismiss(`https://api.mapbox.com/v4/mapbox.emerald/pin-m-0+008cff(-73.7638,42.6564)/-73.7638,42.6564,13/300x200@2x.png?access_token=${environment.mapboxAccessToken}`);
+   .dismiss(returnData);
     //(`https://api.mapbox.com/styles/v1/${}/${}/static/-75.953,42.1165,4.76/300x200?access_token=${environment.mapboxAccessToken}`)
-   
   }
 
 }
