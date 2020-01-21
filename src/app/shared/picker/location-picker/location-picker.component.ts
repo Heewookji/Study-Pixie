@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { MapModalComponent } from "../../modal/map-modal/map-modal.component";
 import { LngLat } from "mapbox-gl";
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { StudyLocation } from 'src/app/studies/location.model';
 
 @Component({
   selector: "app-locatin-picker",
@@ -10,6 +10,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   styleUrls: ["./location-picker.component.scss"]
 })
 export class LocationPickerComponent implements OnInit {
+  @Output() locationPicked = new EventEmitter<StudyLocation>();
   isLoading: boolean = false;
   showPreview: boolean = false;
   selectedLocationImage: string;
@@ -33,6 +34,13 @@ export class LocationPickerComponent implements OnInit {
           if (result.data != undefined) {
             this.selectedLocationImage = result.data.image;
             this.selectedLocationLngLat = result.data.lngLat;
+
+            const pickedLocation: StudyLocation = {
+              lat: this.selectedLocationLngLat.lat,
+              lng: this.selectedLocationLngLat.lng,
+              staticMapImageUrl: this.selectedLocationImage
+            };
+            this.locationPicked.emit(pickedLocation);
           }
         });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, ViewChild,  Input } from "@angular/core";
 import { ModalController, LoadingController } from "@ionic/angular";
 import {  LngLat } from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
@@ -23,7 +23,6 @@ export class MapModalComponent implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    alert(this.selectedLocationLngLat);
     if (!this.initMap) {
       this.loadingCtrl
         .create({

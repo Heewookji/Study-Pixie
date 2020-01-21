@@ -21,7 +21,7 @@ export class SelectMapComponent implements OnInit {
   ngOnInit() {}
 
   showSelectMap(selectedLocationLngLat: mapboxgl.LngLat) {
-    alert(selectedLocationLngLat);
+    this.currentLngLat = selectedLocationLngLat;
     //맵 설정
     (mapboxgl as typeof mapboxgl).accessToken = environment.mapboxAccessToken;
     this.map = new mapboxgl.Map({

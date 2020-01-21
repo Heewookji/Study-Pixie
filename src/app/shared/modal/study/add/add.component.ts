@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { NgForm } from '@angular/forms';
+import {  FormGroup, FormControl, Validators } from '@angular/forms';
+import { StudyLocation } from 'src/app/studies/location.model';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AddComponent implements OnInit {
 
-  @ViewChild("f",null) form: NgForm;
+  @ViewChild("f",null) form: FormGroup;
   startDate: string;
   endDate: string;
 
@@ -18,13 +19,40 @@ export class AddComponent implements OnInit {
   
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.form = new FormGroup({
+      title: new FormControl(null, {
+        updateOn: "blur",
+        validators: Validators.required
+      }),
+      description: new FormControl(null, {
+        updateOn: "blur",
+        validators: [Validators.required, Validators.maxLength(180)]
+      }),
+      price: new FormControl(null, {
+        updateOn: "blur",
+        validators: [Validators.required, Validators.min(1)]
+      }),
+      dateFrom: new FormControl(null, {
+        updateOn: "blur",
+        validators: [Validators.required]
+      }),
+      dateTo: new FormControl(null, {
+        updateOn: "blur",
+        validators: [Validators.required]
+      }),
+      location: new FormControl(null, { validators: [Validators.required] }),
+      image: new FormControl(null)
+    });
+
+  }
 
   dismissModal() {
     this.modalCtrl.dismiss();
   }
 
-  onCreateStudy(){
-    console.log("create!");
+  locationPicked(studyLocation: StudyLocation){
+    console.log(studyLocation);
   }
 }
