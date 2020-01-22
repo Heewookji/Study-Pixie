@@ -8,22 +8,21 @@
 </ion-header>
 <ion-content padding>
 
-  <form (ngSubmit)="onCreateStudy()" #f="ngForm">
+  <form [formGroup]="form">
     <ion-grid fixed>
-
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label position="stacked">이름 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-input required ="name" type="text"></ion-input>
+            <ion-input formControlName="name" type="text"></ion-input>
           </ion-item>
         </ion-col>
 
         <ion-col size="4">
           <ion-item>
             <ion-label position="stacked">인원</ion-label>
-            <ion-select interface="popover">
+            <ion-select interface="popover" formControlName="capacity">
               <ion-select-option value="1" selected>1</ion-select-option>
               <ion-select-option value="2">2</ion-select-option>
               <ion-select-option value="3">3</ion-select-option>
@@ -39,26 +38,13 @@
         <ion-col size-sm="3" offset-sm="3">
           <ion-item>
             <ion-label position="stacked">시작 날짜 <ion-text color="danger">*</ion-text></ion-label>
-              <ion-datetime display-format="MMM DD YYYY"
-              picker-format="YY MMM DD"
-              [ngModel]="startDate"
-              name="date-from"
-              required
-              #startDateCtrl="ngModel"
-              cancelText="취소"
-              doneText="선택"></ion-datetime>
+            <ion-datetime min="2019-01-01" max="2025-12-31" formControlName="dateFrom"></ion-datetime>
             </ion-item>
         </ion-col>
         <ion-col size-sm="3">
             <ion-item>
               <ion-label position="stacked">종료 날짜 <ion-text color="danger">*</ion-text></ion-label>
-                <ion-datetime display-format="MMM DD YYYY"
-                picker-format="YY MMM DD"
-                [ngModel]="endDate"
-                name="date-to"
-                required 
-                cancelText="취소"
-                doneText="선택"></ion-datetime>
+              <ion-datetime min="2019-01-02" max="2025-12-31" formControlName="dateTo"></ion-datetime>
               </ion-item>
           </ion-col>
       </ion-row>
@@ -68,7 +54,7 @@
           <ion-item>
             <ion-label position="stacked">설명 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-textarea required></ion-textarea>
+            <ion-textarea formControlName="description"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -82,7 +68,7 @@
    
 
       <div margin-top>
-        <ion-button expand="block" type="submit" class="ion-no-margin">생성</ion-button>
+        <ion-button expand="block" (click)="onCreateOffer()" class="ion-no-margin">생성</ion-button>
       </div>
 
 
